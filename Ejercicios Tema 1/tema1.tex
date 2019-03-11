@@ -1,0 +1,222 @@
+\documentclass[10pt]{report}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{fancyheadings}
+
+\topmargin -1.5cm
+\textheight 24cm
+\textwidth 16cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\leftmargin 0cm
+
+\pagestyle{fancy}
+
+\lhead
+{\bfseries Grado en Ingeniería Informática\\
+Relación 1: Análisis descriptivo de datos. Regresión. }
+\rfoot{}
+\lfoot{}
+\cfoot{}
+\rhead{\bf ESTADÍSTICA}
+\begin{document}
+
+\begin{enumerate}
+\item  Hemos recibido el encargo de desarrollar una aplicación para móvil
+que convierta archivos en formato \texttt{.jpg} a \texttt{.pdf}. Uno de los requisitos solicitados por
+el cliente es que, una vez elegido el archivo \texttt{.jpg} a convertir, se muestre en pantalla el
+tiempo estimado que se tardará en convertir el archivo. Para implementar tal funcionalidad,
+decidimos usar un modelo de regresión para predecir el tiempo en función del tamaño del
+archivo \texttt{.jpg}, tomando como base los datos recolectados en la fase de pruebas de la
+aplicación, reflejados en la siguiente tabla:
+\begin{center}
+\begin{tabular}{l|rrrrr}
+Tamaño archivo (MB) & 20 & 10 & 50 & 17 & 5 \\
+\hline
+Tiempo de conversión (segs.) & 1.8 & 1 & 5.3 & 1.9 & 0.6
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\item Construye las dos rectas de regresión correspondientes a los datos en la tabla anterior.
+\item ¿Podemos concluir que la regresión es adecuada para resolver el problema planteado,
+en base a los datos de la tabla?
+\item Usando la recta de regresión adecuada, calcula el tiempo de conversión estimado que mostraremos
+en pantalla, para un archivo de 30MB.
+\end{enumerate}
+
+\item Con objeto de determinar la relación entre el tiempo de respuesta (en segundos) de una
+determinada base de datos de consulta y el número de usuarios se han tomado 10 datos correspondientes a
+2 semanas consecutivas, obteniéndose los siguientes resultados (tiempo $|$ número de usuarios):
+\begin{center}
+\begin{tabular}{l|ccccc}
+ & Lun. & Mar. & Mié. & Jue. & Vie. \\
+ \hline
+Semana 1 & 4.32  $|$  15 & 7.14 $|$ 18& 9.21 $|$ 20 & 9.71 $|$ 20 & 15.39 $|$ 26\\
+Semana 2 & 5.2 $|$ 16 & 8.37 $|$ 19 & 9.34 $|$ 20 & 10.46 $|$ 21 & 18.9 $|$ 29 \\
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item ¿Cuál de las dos variables es más homogénea?
+\item  Usando la recta de regresión adecuada, determina el número de usuarios activos, si el tiempo
+de respuesta es de 12 segundos.
+\item  ¿Podemos concluir que la regresión es adecuada para resolver el problema planteado,
+en base a los datos de la tabla?
+\end{enumerate}
+
+\item La siguiente tabla muestra los resultados de medir el tiempo que se tarda
+ en transferir 5 archivos de distinto tamaño a través de una red:
+\begin{center}
+ \begin{tabular}{c|ccccc}
+ Tamaño del archivo (KBytes) & 300 & 500 & 120 & 600 & 400 \\
+ \hline
+ Tiempo de transmisión (segundos) & 1.1 & 1.9 & 0.3 & 2.1 & 1.5
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\item Usando regresión lineal, determina el tiempo de
+transmisión de un archivo de 200 KBytes.
+\item Usando regresión lineal, determina el tamaño de un
+archivo que tarda 0.5 segundos en ser transferido.
+\item Determina si el ajuste es fiable o no.
+\end{enumerate}
+
+\item  Se han obtenido los siguientes datos sobre número de
+usuarios en un aula de acceso libre y número de fallos en los PCs del aula:
+\begin{center}
+ \begin{tabular}{c|ccccc}
+ Número de usuarios & 47 & 41 & 54 & 50 & 42 \\
+\hline
+Número de fallos & 5 & 4 & 6 & 5 & 3
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\item  Obtén la recta de regresión necesaria para predecir el
+número de usuarios en función del número de fallos.
+\item  Determina cómo de fiable es el ajuste.
+\end{enumerate}
+
+\item La siguiente tabla muestra los resultados de medir, en 5 instantes
+durante un día, el número de usuarios conectados a un servidor Linux y la
+cantidad de RAM (en GB) disponible en el sistema:
+\begin{center}
+ \begin{tabular}{c|ccccc}
+ Número de usuarios & 5 & 3 & 2 & 6 & 1 \\
+\hline
+RAM disponible & 1.1 & 2.6 & 3 & 1 & 3.5
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\item Usando regresión lineal, determina la cantidad de
+RAM disponible si hay 4 usuarios conectados.
+\item  Usando regresión lineal, determina el número de
+usuarios conectados si la RAM disponible es de 1.5 GB.
+\item  Determina cómo de fiable es el ajuste.
+\end{enumerate}
+
+
+\item La siguiente tabla muestra los resultados de medir la cantidad de datos ($X$, en KB) tecleada por cinco operadores en un día de trabajo y el tamaño de su monitor ($Y$, en pulgadas).
+\begin{center}
+ \begin{tabular}{c|ccccc}
+$X$ & 150 & 175 & 210 & 230 & 276 \\
+\hline
+$Y$ & 15 & 17 & 19 & 21 & 26
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\item Usando regresión lineal, determina la cantidad de
+datos que se puede predecir para un operador cuyo monitor sea de 24 pulgadas.
+\item Determina cómo de fiable es el ajuste.
+\end{enumerate}
+
+\item Los siguientes datos representan el número de accesos ($X$) a un servidor remoto
+y el número de cortes en la comunicación ($Y$) sufridos durante diez días consecutivos:
+
+     \begin{center}
+       \begin{tabular}{l|cccccccccccc}
+         $X$ & 170 & 160 & 210 & 140 & 180 & 240 & 160 & 140 & 210 &
+         230 \\
+         \hline
+         $Y$ & 8 & 7 & 11 & 5 & 9 & 12 & 8 & 6 & 10 &
+         13  \\
+       \end{tabular}
+     \end{center}
+
+     \begin{enumerate}
+    \item  Comprueba si las variables $X$ e $Y$ son independientes.
+    \item  Calcula, usando una recta de regresión, el número de
+    cortes en la comunicación durante un día en el que se producen 150 accesos. ¿Es bueno el ajuste?
+     \end{enumerate}
+
+
+\item Los siguientes datos representan el número total de mensajes de correo electrónico ($X$) manejados
+por un servidor y el número de mensajes tipo SPAM ($Y$) correspondientes a diez días consecutivos:
+
+     \begin{center}
+       \begin{tabular}{l|cccccccccccc}
+         $X$ & 170 & 160 & 210 & 140 & 180 & 240 & 160 & 140 & 210 &
+         230 \\
+         \hline
+         $Y$ & 8 & 7 & 11 & 5 & 9 & 12 & 8 & 6 & 10 &
+         15  \\
+       \end{tabular}
+     \end{center}
+
+     \begin{enumerate}
+    \item ¿Cuál de las dos variables es más dispersa?.
+    \item Calcula, usando una recta de regresión, el número total
+    de mensajes manejados durante un día en el que se recibieron 13 mensajes tipo SPAM. ¿Es bueno el ajuste
+    realizado mediante la recta de regresión?
+     \end{enumerate}
+
+
+
+\item En una empresa los empleados se clasifican
+  en tres categorías: técnicos, especialistas y administrativos.
+  El salario medio mensual y la
+  varianza de los salarios de cada categoría en el mes de
+  Diciembre de 2015 son los que aparecen en en siguiente cuadro:
+  {\small{
+      \begin{center}
+        \begin{tabular}{||c|c|c||}
+          \hline  Categoría & Salario medio & Varianza de
+          los \\
+          & mensual & salarios\\
+           & (euros) & (miles de $euros^{2}$) \\
+          \hline Técnicos & 2500 & 10 \\
+          \hline Especialistas  & 2000 & 25 \\
+          \hline Administrativos & 1500 & 15 \\
+          \hline
+        \end{tabular}
+      \end{center}
+    }}
+
+  I.-  ¿En qué grupo de empleados los salarios son más homogéneos?
+
+  II.-  En la discusión para fijar los salarios de 2016 han
+  sido propuestas dos alternativas:
+
+  \bigskip
+  A: La elevación de todos los salarios en un 5\%.
+
+  B: La elevación de todos los salarios en 50 euros mensuales.
+
+
+  \bigskip
+  Calcula los salarios medios que resultan de aplicar las
+dos alternativas y la dispersión relativa en cada caso. ¿Qué alternativa provoca menos dispersión en los salarios de los grupos?
+
+
+\item Se han estudiado las calificaciones de 100 alumnos en dos asignaturas: Matemáticas y Estadística, obteniéndose los siguientes datos: \\
+    $\overline{x}=110,\ \overline{y}=2.5,\ S_x=10,\ S_y=0.5,\ r=0.85.$
+\begin{enumerate}
+\item ?`Qué nota se puede predecir para un alumno, que ha obtenido 125 puntos en Matemáticas, en la asignatura de Estadística?
+\item ?`Se puede decir que aquellos alumnos que obtienen mayor calificación en Matemáticas sean los mismos que obtienen mayor calificación en Estadística?
+\item  ?`Cuál es la ecuación de la recta de regresión de $X$ sobre $Y$?
+\end{enumerate}
+
+\end{enumerate}
+\end{document}
