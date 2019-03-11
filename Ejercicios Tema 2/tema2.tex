@@ -1,0 +1,269 @@
+\documentclass[10pt]{report}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{fancyheadings}
+
+\topmargin -1.5cm
+\textheight 24cm
+\textwidth 16cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\leftmargin 0cm
+
+\pagestyle{fancy}
+
+\lhead
+{\bfseries Grado en Ingeniería Informática\\
+Relación 2: Probabilidad. }
+\rfoot{}
+\lfoot{}
+\cfoot{}
+\rhead{\bf ESTADÍSTICA}
+\begin{document}
+
+
+\begin{enumerate}
+\item \textsf{La red de datos de nuestra empresa cuenta con 3 routers, $A$, $B$ y $C$. De acuerdo con las
+especificaciones de los equipos, las probabilidades de fallo en cada uno de ellos son $0.01$, $0.025$ y $0.005$ respectivamente.
+Sabemos que el router $A$ maneja el 50\% de las transmisiones, repartiéndose el resto de forma igual entre los routers $B$
+y $C$.
+\begin{enumerate}
+\item Calcula la probabilidad de que se produzca un error debido al router en una transmisión cualquiera.
+\item Si una transmisión ha resultado errónea, ¿cuál es la probabilidad de que la procesara el router $C$?
+\end{enumerate}}
+
+\item \textsf{Antes de sacar al mercado una nueva versión de un
+determinado programa, la empresa que lo desarrolla decide someterlo a un
+proceso de prueba para detectar posibles errores. Para ello,  se tiene la opción de 
+enviar una versión beta a tres empresas de verificación de software, para que analicen el programa
+de forma independiente. Las tres empresas garantizan que detectan cualquier
+fallo en el software con probabilidad 0.1, 0.3 y 0.4 respectivamente. Responde a la siguientes preguntas:}
+
+\begin{itemize}
+\item a) Si el programa contiene un fallo y se le envía a alguna de las empresas ¿cual es la probabilidad de que el fallo sea detectado?
+
+\textbf{Solución:}
+En primer lugar, determinemos los sucesos que intervienen en el problema: \\
+$F$: El fallo es detectado
+$A$: La primera empresa analiza el código. \\
+$B$: La segunda empresa analiza el código. \\
+$C$: La tercera empresa analiza el código. \\
+La información de la que disponemos es la siguiente: $P(F|A)=0.1$, $P(F|B)=0.3$ y $P(F|C)=0.4$. Además tenemos que $P(A)=P(B)=P(C)  = 1/3$, puesto que 
+se le envía a alguna de las empresas, pero no nos dicen cual. 
+
+Se nos pide que calculemos $P(F)$, para calcular esta probabilidad podemos aplicar la regla de probabilidad total:
+\begin{eqnarray*}
+P(F) &=& P(F|A)P(A) + P(F|B)P(B) + P(F|C) P(C)\\
+&=& 0.1*1/3 + 0.3*1/3 + 0.4*1/3 = 0.27
+\end{eqnarray*}
+
+
+\item b) Si el programa contiene un fallo y se le envía a las tres empresas ¿cual es la probabilidad de que el fallo sea detectado?
+
+\textbf{Solución:}
+En primer lugar, determinemos los sucesos que intervienen en el problema: \\
+$FA$: La primera empresa detecta el fallo. \\
+$FB$: La segunda empresa detecta el fallo. \\
+$FC$: La tercera empresa detecta el fallo. \\
+La información de la que disponemos es la siguiente: $P(FA)=0.1$, $P(FB)=0.3$ y $P(FC)=0.4$.
+
+La probabilidad de que el fallo sea detectado por al menos una de las empresas
+es $P(FA\cup FB\cup FC)$, que se puede calcular como 1 menos la probabilidad del
+suceso contrario, es decir,
+\[
+P(FA\cup FB\cup FC) = 1- P(FA^c\cap FB^c\cap FC^c) = 1-(0.9\times 0.7 \times 0.6) =
+0.622 \enspace ,
+\]
+dado que al ser los sucesos $FA,FB$ y $FC$ independientes, se cumple que
+$P(FA^c\cap FB^c\cap FC^c) = P(FA^c)P(FB^c)P(FC^c)$.
+\end{itemize}
+
+\item \textsf{Según un estudio, 1 de cada 100 archivos disponibles en un servidor p2p tienen virus.
+Se dispone de un antivirus que da positivo sobre un archivo que no está infectado con probabilidad 0.05.}
+
+\begin{itemize}
+
+\item \textsf{a)  Si se sabe además que el antivirus da negativo sobre un archivo que está
+infectado con probabilidad de 0.01. ¿Cuál es la probabilidad de que un archivo para el cuál el antivirus da positivo, tenga
+realmente un virus?}
+
+\textbf{Solución:}
+En primer lugar, determinemos los sucesos que intervienen en el problema: \\
+$V$: Un archivo tiene virus.
+
+$A$: El antivirus da positivo.
+
+La información de la que disponemos es la siguiente: $P(A|V^c)=0.05$, $P(A^c|V)=0.01$ y $P(V)=0.01$.
+
+La cuestión que tenemos que resolver es calcular $P(V|A)$, que es equivalente a calcular $1-P(V^c|A)$.
+Por la regla de Bayes, sabemos que
+\begin{eqnarray}
+P(V^c|A)&=&\frac{P(A|V^c)P(V^c)}{P(A|V)P(V) + P(A|V^c)P(V^c)}\\
+&=&\frac{P(A|V^c)P(V^c)}{(1-P(A^c|V))P(V) + P(A|V^c)P(V^c)}\\
+&=&\frac{0.05*0.99}{0.99*0.01 + 0.05*0.99} = 0.83
+\end{eqnarray}
+
+Por tanto, 
+\[
+P(V|A)  = 1-P(V^c|A) = 1- 0.83 = 0.17
+\]
+\item \textsf{b)  Y si la información que nos dan es: si el antivirus da negativo, la probabilidad de que el archivo realmente no esté
+infectado es de 0.99. ¿Cuál sería ahora la probabilidad de que un archivo para el cuál el antivirus da positivo, tenga
+realmente un virus?}
+\end{itemize}
+
+
+\textbf{Solución:}
+
+La información de la que dispondríamos ahora sería: $P(A|V^c)=0.05$, $P(V^c|A^c)=0.99$ y $P(V)=0.01$.
+
+De nuevo, la cuestión que tenemos que resolver es calcular $P(V|A)$, que es equivalente a calcular $1-P(V^c|A)$.
+Por la regla de Bayes, sabemos que
+\[
+P(V^c|A)=\frac{P(A|V^c)P(V^c)}{P(A|V)P(V) + P(A|V^c)P(V^c)},
+\]
+pero desconocemos el valor de $P(A|V)$. Sin embargo, conocemos $P(V^c|A^c)$, y por la regla de Bayes,
+\begin{eqnarray*}
+P(V^c|A^c)& = & \frac{P(A^c|V^c)P(V^c)}{P(A^c)} = \frac{(1-P(A|V^c))P(V^c)}{1-P(A)} \\
+& \Rightarrow & 1-P(A) = \frac{(1-0.05) \times 0.99}{0.99} \\
+& \Rightarrow & P(A) = 0.05
+\end{eqnarray*}
+Por lo tanto,
+\[
+P(V|A) = 1-P(V^c|A) = 1- \frac{P(A|V^c)P(V^c)}{P(A)} = 1 - \frac{0.05 \times 0.99}{0.05} = 0.01
+\]
+
+\item \textsf{En un sistema de alarma antivirus, la probabilidad de que se produzca un riesgo de contagio de
+virus es 0.1. Si éste se produce, la probabilidad de que salte una alerta es de 0.95. La probabilidad de que
+salte una alerta sin haber un verdadero riesgo es 0.03. Hallar:
+\begin{enumerate}
+\item Probabilidad de que habiendo saltado una alerta, no haya habido riesgo de contagio.
+\item Probabilidad de que haya un riesgo y la alerta no funcione.
+\item Probabilidad de que no habiendo saltado la alerta, haya un riesgo de contagio.
+\end{enumerate}
+}
+
+%\textbf{Solución:}
+%En primer lugar, determinemos los sucesos que intervienen en el problema: \\
+%$R$: Se produce un riesgo de contagio.
+%
+%$A$: Salta una alerta.
+%
+%La información que conocemos es la siguiente: $P(R)=0.1$, $P(A|R)=0.95$ y $P(A|R^c)=0.03$. Las
+%cuestiones a resolver son las siguientes:
+%\begin{enumerate}
+%\item $P(R^c|A)$. Podemos calcular esta probabilidad usando la regla de Bayes:
+%\begin{eqnarray*}
+%P(R^c|A) & = & \frac{P(A|R^c)P(R^c)}{P(A|R)P(R)+P(A|R^c)P(R^c)} \\
+%& = & \frac{0.03 \times 0.9}{0.95\times 0.1 + 0.03 \times 0.9} = 0.22
+%\end{eqnarray*}
+%\item $P(R\cap A^c)$. Podemos calcularla usando la definición de probabilidad condicionada:
+%\[
+%P(R\cap A^c) = P(A^c|R)P(R) = (1-P(A|R))P(R) = (1-0.95) \times 0.1 = 0.005
+%\]
+%\item $P(R|A^c)$. Podemos calcularla usando la definición de probabilidad condicionada:
+%\[
+%P(R|A^c) = \frac{P(R\cap A^c)}{P(A^c)} = \frac{0.005}{P(A^c)}.
+%\]
+%El dato que nos falta lo podemos obtener usando la regla de la probabilidad total:
+%\[
+%P(A^c) = 1-P(A) = 1- (P(A|R)P(R)+P(A|R^c)P(R^c)) = 1-0.122 = 0.878.
+%\]
+%Por lo tanto,
+%\[
+%P(R|A^c) =  \frac{0.005}{0.878} = 0.0056.
+%\]
+%\end{enumerate}
+
+\item \textsf{Dos máquinas $A$ y $B$ han producido respectivamente, 100 y 200 componentes electrónicos.
+Se sabe que $A$ produce un 5\% de componentes defectuosos y B un 6\%. Se toma un componente y se pide:
+\begin{enumerate}
+\item Probabilidad de que sea defectuoso (puede haber sido producido por $A$ o por $B$).
+\item Sabiendo que es defectuoso, probabilidad de que proceda de la máquina $A$.
+\end{enumerate}
+}
+
+%\textbf{Solución:}
+%En primer lugar, determinemos los sucesos que intervienen en el problema: \\
+%$A$: Un componente es producido por $A$.
+%
+%$B$: Un componente es producido por $B$.
+%
+%$D$: Un componente es defectuoso.
+%
+%La información de la que disponemos es la siguiente: $P(A) = 1/3$, $P(B)=2/3$, $P(D|A)=0.05$ y $P(D|B)=0.06$. Las
+%cuestiones a resolver son las siguientes:
+%\begin{enumerate}
+%\item $P(D)$. Aplicamos la regla de la probabilidad total:
+%\[
+%P(D) = P(D|A)P(A) + P(D|B)P(B) = 0.05 \times \frac{1}{3} + 0.06 \times \frac{2}{3} = 0.056
+%\]
+%\item $P(A|D)$. Aplicamos Bayes:
+%\[
+%P(A|D) = \frac{P(D|A)P(A)}{P(D)} = \frac{0.05\times \frac{1}{3}}{0.056} = 0.29
+%\]
+%\end{enumerate}
+
+\item \textsf{Se ha realizado una encuesta de satisfacción sobre los usuarios de tres sistemas operativos en una empresa,
+denominados $A$, $B$ y $C$. El 90\% de los usuarios del sistema $A$ están satisfechos, mientras que dichos porcentajes
+son del 80\% para $B$ y del 35\% para $C$. Se sabe además que el 30\% de los entrevistados usan el sistema $A$ y el
+10\% usan $B$.
+\begin{enumerate}
+\item ¿Cuál es la probabilidad de
+que un empleado de la empresa elegido al azar esté satisfecho con el sistema operativo?
+\item Si se sabe que un usuario no está satisfecho con el sistema operativo, ¿cuál es la probabilidad de que
+esté utilizando el $B$?.
+\end{enumerate}
+}
+
+%\textbf{Solución:}
+%En primer lugar, determinemos los sucesos que intervienen en el problema: \\
+%$A$: El sistema operativo usado es el $A$.
+%
+%$B$: El sistema operativo usado es el $B$.
+%
+%$C$: El sistema operativo usado es el $C$.
+%
+%$S$: El usuario está satisfecho con el sistema operativo.
+%
+%La información de la que disponemos es la siguiente: $P(S|A) = 0.9$, $P(S|B)=0.8$, $P(S|C)=0.35$, $P(A)=0.3$, $P(B)=0.1$ y $P(C)=0.6$. Las cuestiones a resolver son:
+%\begin{enumerate}
+%\item $P(S)$. Usamos probabilidad total:
+%\[
+%P(S) = P(S|A)P(A) + P(S|B)P(B) + P(S|C)P(C) = 0.9 \times 0.3 + 0.8 \times 0.1 + 0.35 \times 0.6 = 0.56
+%\]
+%\item $P(B|S^c)$.  Usamos la regla de Bayes:
+%\begin{eqnarray*}
+%P(B|S^c) & = & \frac{P(S^c|B)P(B)}{P(S^c)} = \frac{(1-0.8) \times 0.1}{1-0.56} = 0.045
+%\end{eqnarray*}
+%
+%\end{enumerate}
+
+
+\item En cierta facultad el 25\% de los estudiantes suspenden
+   Matem\'{a}ticas, el 15\% Estad\'{\i}stica y el 10\% ambas. Se selecciona
+   un estudiante al azar.
+
+   \begin{enumerate}
+
+      \item Si ha suspendido Estad\'{\i}stica, ¿cu\'{a}l es la probabilidad de
+      que suspendiera Matem\'{a}ticas?
+
+      \item Si tiene la Estad\'{\i}stica aprobada, ¿cu\'{a}l es la
+      probabilidad de que tenga tambi\'{e}n las Matem\'{a}ticas
+      aprobadas?
+   \end{enumerate}
+
+\item Tres estudiantes compa\~{n}eros de piso tratan de decidir
+   qui\'{e}n sacar\'{a} hoy la basura. Para ello meten en una bolsa opaca
+   dos cigarros rubios y uno negro y extraen cada uno
+   sucesivamente un cigarro sin volverlo a meter. El elegido ser\'{a}
+   el que escoja el cigarro negro. Demuestra que todos tienen la
+   misma probabilidad de que les toque, sea cual sea el orden en
+   que se efect\'{u}en las extracciones.
+
+\end{enumerate}
+\end{document}
