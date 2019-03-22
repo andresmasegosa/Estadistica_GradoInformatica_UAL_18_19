@@ -1,0 +1,699 @@
+\documentclass{article}
+\usepackage{lmodern}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{eurosym}
+\usepackage{mathtools}
+\setlength{\parskip}{5mm}
+
+\title{Grado en Ingenier\'ia Inform\'atica
+	Relaci\'on 1: An\'alisis descriptivo de datos. Regresi\'on.}
+
+\begin{document}
+\maketitle
+
+1. Hemos recibido el encargo de desarrollar una aplicaci\'on para m\'ovil que convierta archivos en formato \textit{.jpg} a  \textit{.pdf}. Uno de los requisitos solicitados por el cliente es que, una vez elegido el archivo \textit{.jpg} a convertir, se muestre en pantalla el tiempo estimado que se tardar\'a en convertir el archivo. Para implementar tal funcionalidad, decidimos usar un modulo de regresi\'on para predecir el tiempo en funci\'on del tamaño del archivo \textit{.jpg}, tomando como base los datos recolectados en la fase de pruebas de la aplicaci\'on, reflejados en la siguiente tabla:
+
+\begin{tabular}{|l|c|r|r|r|r|r}
+Tamaño archivo (MB)  & 20 & 10 & 50 & 17 & 5\\
+\hline
+Tiempo de conversi\'on (segs) & 1,8 & 1 & 5,3 & 1.9 & 0,6\\
+\end{tabular}
+
+a) Construye las dos rectas de regresi\'on correspondientes a los datos en la tabla anterior.
+
+b) ¿Podemos concluir que la regresi\'on es adecuada para resolver el problema planteado, en base a los datos de la tabla?.
+
+c) Usando la recta de regresi\'on adecuada, calcula el tiempo de conversi\'on estimado que mostraremos en pantalla, para un archivo de 30MB.
+
+\rule{119mm}{0.2mm}
+
+\textbf{a) Construye las dos rectas de regresi\'on correspondientes a los datos en la tabla anterior.}
+
+Para construir las dos rectas de regresi\'on tendremos que sacar una serie de datos:
+
+\textbf{Media :} 
+
+
+ \(\overline{X} = \displaystyle\sum_{i=1}^{N}(x_i  * y_j) = \frac{20 + 10 +50 +17 +5}{5} = 20.4MB\)
+
+\(\overline{Y} = \displaystyle\sum_{i=1}^ {N}(y_i * n_i) = \frac{1,8 + 1 + 5,3 + 1,9 + 0,6}{5} = 2.12 Seg\)
+
+\textbf{Covarianza:}
+
+Sxy = \(\frac{1}{N} \displaystyle\sum_{i=1}^ {N} x_{i} * y_{j} * n_{ij} - (\overline{X} * \overline{Y}) = \frac{(20 * 1,8) + (10 * 1) + (50 * 5,3) + (17 * 1,9) + (5 * 0,6)} {5} - (20,4 * 2,12) = 26,012 MB/Segs\)
+
+\textbf{Varianzas:}
+
+\(Sx^{2} = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{i}^{2} * n_{i}) - \overline{X}^{2} \)
+
+\(Sx^ {2} = \frac{3314}{5}  - 20.4^{2} = 246.64 MB_{2}\)
+
+\(Sy^{2} = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} y_{j}^{2} * n_{j}) - \overline{Y}^{2} \)
+
+\(Sy^ {2} = \frac{1.8^{2} + 1^{2} + 5.3^{2} + 1.9^{2} + 0,6^{2}}{5}  - 2.12^{2} = 2,7656  Seg_{2}\)
+
+\textbf{Regresi\'on: }
+
+Recta de regresi\'on X sobre Y:
+\((x - \overline{X}) = \frac{Sxy}{Sy^{2}} (y - 2.12)\)
+
+Recta de regresi\'on Y sobre X:
+\((y - \overline{Y}) = \frac{Sxy}{Sx^{2}} (x - 20,4) \)
+
+
+\textbf{b) ¿Podemos concluir que la regresi\'on es adecuada para resolver el problema planteado, en base a los datos de la tabla? }
+
+Para saber si es adecuada, voy a estudiar el grado de correlaci\'on entre X e Y, ya que podremos saber si existe una buena correlaci\'on.
+
+\( r =  \frac{S_{xy}}{S_{x} * S_{y}} = \frac{26,012}{\sqrt[2]{246,64} * \sqrt[2]{2,765}} = 0,9960\)
+
+Con lo que podemos ver que existe una buena relacion entre X e Y con lo que podemos concluir que la regresi\'on es adecuada para resolver este problema
+
+\textbf{c) Usando la recta de regresi\'on adecuada, calcula el tiempo de conversi\'on estimado que mostraremos en pantalla, para un archivo de 30MB}
+
+\(y = \overline{Y}  + \frac{S_{xy}}{S_{x}^2} (x - \overline{X})\)
+
+\(y = 2,12 + \frac{26,012}{246,64}(30 - 20,4) = 3,132468375 segs.\)
+
+\rule{123mm}{0.5mm}
+
+2. Con objeto de determinar la relaci\'on entre el tiempo de respuesta (en segundos) de una determinada base de datos de consulta y el n\'umero de usuarios se han tomado 10 datos correspondientes a 2 semanas consecutivas, obteni\'endose los siguientes resultados (tiempo | número de usuarios):
+
+\begin{tabular}{|l|c|c|c|c|c|c}
+        & Lunes & Martes & Miercoles & Jueves & Viernes\\
+\hline
+Semana1 & 4.32 | 15 & 7.14 | 18 & 9.21 | 20 & 9.71 | 20 & 15.39 | 26\\
+\hline
+Semana2 & 5.2 | 16 & 8.37 | 19 & 9.34 | 20 & 10.46 | 21 & 18.9 | 29\\
+\end{tabular}
+
+a) ¿Cu\'al de las dos variables es m\'as homog\'enea?
+
+b) Usando la recta de regresi\'on adecuada, determinar el n\'umero de usuarios activos, si el tiempo de respuesta es de 12 segundos.
+
+c) ¿Podemos concluir que la regresi\'on es adecuada para resolver el problema planteado, en base a los datos de la tabla? 
+
+\rule{119mm}{0.2mm}
+
+\textbf{a) ¿Cu\'al de las dos variables es m\'as homog\'enea?}
+
+Para saber cual es de las dos variables es m\'as homog\'enea usaremos el coeficiente de variaci\'on de Pearson, para ello necesitaremos la media de ambas variables, su varianza y su desviaci\'on tipica.
+
+\textbf{Medias:}
+
+\(\overline{X} = \frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{i} * n_{i} \)          
+    
+\(\overline{Y} = \frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{j} * n_{j} \)
+
+Donde la media de x es: 
+
+\(\overline{X} = \frac{4,32 + 7,14 + 9,21 + 9,71 + 15,39 + 5,2 + 8,37 + 9,34 + 10,46 + 18,9}{10} = 9,804 Segundos \)
+
+y la media de y es :
+
+\(\overline{Y} = \frac{15 + 18 + 20 + 20 + 26 + 16 + 19 + 20 + 21 + 29)}{10} = 20,4 Usuarios \)
+
+\textbf{Varianza:}
+
+\(S_{x}^2 = (\frac{1}{n} \displaystyle\sum_{i=1}^{N} x_{i}^2 * n_{i}) - \overline{X}^2\)
+
+\(S_{y}^2 = (\frac{1}{n} \displaystyle\sum_{i=1}^{N} x_{j}^2 * n_{j}) - \overline{Y}^2\)
+
+Donde la Varianza de x es:
+
+\(S_{x}^2 = \frac{4,32^{2}  + 7,14^{2} + 9,21^{2} + 9,71^{2}  + 15,39^{2} + 5,2^{2} + 8,37^{2} + 9,34^{2} + 10,46^{2} + 18,9^{2}}{10} - 9,804^{2} = 17,537224 Segundos^{2}\)
+
+y la Varianza de y:
+
+\(S_{y}^2 = \frac{15^{2} + 18^{2} + 20^{2} + 20^{2} + 26^{2} + 16^{2} + 19^{2} + 20^{2} + 21^{2} + 29^{2}}{10} - 20,4^{2} = 16,24 Usuarios^{2}\)
+
+\textbf{Desviaci\'on tipica:}
+
+\(S_{x} = \sqrt[2]{15,537224} = 4,187746888\)
+
+\(S_{y} = \sqrt[2]{16,24} = 4,029888336\)
+
+\textbf{Coeficiente de variaci\'on de pearson:}
+
+Y por ultimo ya obtenemos el coeficiente de variaci\'on de Pearson,
+
+\(V(x) = \frac{S_{x}}{\overline{X}} = \frac{4,187746888}{9,804} = 0,4271467654\)
+
+\(V(y) = \frac{S_{y}}{\overline{Y}} = \frac{4,029888336}{20,4} = 0,1975435459\)
+
+Con lo que podemos ver que la variable X es m\'as homog\'enea que Y
+
+\textbf{b) Usando la recta de regresi\'on adecuada, determina el n\'umero de usuarios activos, si el tiempo de respuesta es de 12 segundos.}
+
+Con lo sacado en el apartado A y nos dice 12 segundos, realizaremos la recta de regresi\'on de Y sobre X.
+
+\textbf{Covarianza:}
+
+\(S_{xy} = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} \displaystyle\sum_{j=1}^{M} x_{i} * y_{j} * n_{ij}) - \overline{X} * \overline{Y} \)
+
+\(S_{xy} = (\frac{(4,32 * 15) + (7,14 * 18) + (9,21 * 20) + (9,71 * 20) +(15,39 * 26) + (5,2 * 16) + (8,37 * 19) + (9,34 * 20) + (10,46 * 21) + (18,9) + (29)}{10}) - 9,804 * 20,4 = 16,8634 Segundos/Usuarios \)
+
+Usaremos la recta de regresi\'on de Y sobre X:
+
+\(y - \overline{Y} = \frac{S_{xy}}{S_{x}^2} (x - \overline{X})\)
+
+\(y = 20,4 + \frac{16,8634}{17,537224} (12 - 9,804) = 22,51162419 Usuarios\)
+
+\textbf{c) ¿Podemos concluir que la regresi\'on es adecuada para resolver el problema planteado, en base a los datos de la tabla?}
+
+\(r = \frac{S_{xy}}{S_{x} *S_{y}}\)
+
+\(r = \frac{16,8634}{4,187746888 * 4,029888336} = 0,9992443575 \)
+
+Si ya que podemos ver existe un muy buena relaci\'on entre ambas variables
+
+\rule{119mm}{0.5mm}
+
+3. La siguiente tabla muestra los resultados de medir el tiempo que se tarda en transferir 5 archivos de distinto tamaño a trav\'es de una red:
+
+\begin{tabular}{|l|c|c|c|c|c|c|}
+Tamaño del archivo (KBytes)  & 300 & 500 & 120 & 600 & 400\\
+\hline
+Tiempo de transmisi\'on (segundos) & 1,1 & 1,9 & 0,3 & 2,1 & 1,5\\
+\end{tabular}
+
+a) Usando regresi\'on lineal, determina el tiempo de transmisi\'on de un archivo de 200 KBytes
+
+b) Usando regresi\'on lineal, determina el tamaño de un archivo que tarda 0,5 segundos en ser transferido
+
+c) Determina si el ajuste es fiable o no
+
+\rule{119mm}{0.2mm}
+
+\textbf{a) Usando regresi\'on, determina el tiempo de transmisi\'on de un archivo de 200 KBytes}
+
+\(\overline{Y} sobre \overline{X} \) 
+
+\( (y - \overline{Y}) = \frac{S_{xy}}{S_{x}^2} (x - \overline{X})\) Recta de regresi\'on
+
+\textbf{Medias:} 
+
+\(\overline{X} = \frac{1}{N} \displaystyle\sum_{i=1}{N} x_{i} * n_{i} = \frac{(300 * 1) + (500 * 1) + (120 * 1) +(600 * 1) + (400 * 1)}{5} = 384KB\)
+
+\(\overline{Y} = \frac{1}{N} \displaystyle\sum_{j=1}^{N} y_{j} * n_{j} = \frac{(1,1 * 1) + (1,9 * 1) + (0,3 * 1) +(2,1 * 1) + (1,5 * 1)}{5} = 1,38 Segundos\)
+
+\textbf{Varianza:} 
+
+\(S_{x}^2 = (\frac{1}{N} \displaystyle\sum_{i = 1}^{N}) x_{i}^2 * n_{i}) - \overline{X}^2 = (\frac{300^2 + 500^2 + 120^2 + 600^2 + 400^2}{5}) - 384^2 = 27424 KB^2 \)
+
+\textbf{Covarianza:}
+
+\( S_{xy} = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} \displaystyle\sum_{j=1}^{M} x_{i} y_{j} n{ij})  - \overline{X}\overline{Y} = \frac{(300 * 1,1) + (500 * 1,9) + (200 * 0,3) + (600 * 2,1) + (400 * 1,5)}{5} - (384 * 1,38) = 105,28 KBSegundo \)
+
+Por lo tanto la recta de regresi\'on es:
+
+\(y = 1,38 + \frac{105,28}{27424} (200 - 384) = 0,67 Segundos\)
+
+\textbf{b) Usando regresi\'on lineal, determina el tamaño de un archivo que tarda 0.5 segundos en ser transferido}
+
+\(\overline{X} sobre \overline{Y}\)
+
+\(x - \overline{X} = \frac{S_{xy}}{S_{y}^2} (y - \overline{Y})\)
+
+\(S_{y}^2 = \frac{(1,1)^2 + (1,9)^2 + (0,3)^2 + (2,1)^2 + (1,5)^2} {5} - 1.38^2 = 0,4096 Segundo^2\)
+
+\(x = 384 + \frac{105,28}{0,4096} (0,5 - 1,38) = 157,8125KB\)
+
+\textbf{c) Determina si el ajuste es fiable o no}
+
+\(S_{x} = \sqrt[2]{27424} = 165,60\)
+
+\(S_{y} = \sqrt[2]{0,4096} = 0,64\)
+
+
+\( r = \frac{S_{xy}}{S_{x} S_{y}} = \frac{105,28}{165,60 * 0,64} = 0,9933574\)
+
+Es casi perfecta la predicci\'on, por lo que si es fiable 
+
+\rule{119mm}{0.5mm}
+
+4. Se han obtenido los siguientes datos sobre n\'umero de usuarios en funci\'on del n\'umero de fallos en los PCs del aula:
+
+\begin{tabular}{|l|c|c|c|c|c|c|}
+N\'umero de usuarios  & 47 & 41 & 54 & 50 & 42\\
+\hline
+N\'umero de fallos  & 5 & 4 & 6 & 5 & 3\\
+\end{tabular}
+
+a) Obt\'en la recta de regresi\'on necesaria para predecir el n\'umero de usuarios en funci\'on del n\'umero de fallos 
+
+b) Determina c\'omo de fiable es el ajuste
+
+\rule{119mm}{0.2mm}
+
+\textbf{a) Obt\'en la recta de regresi\'on necesaria para predecir el n\'umero de usuarios en funci\'on del n\'umero de fallos}
+
+\textbf{Media:}
+
+\(\overline{X} = \frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{i} n_{i}\)
+
+\(\overline{X} = \frac{47 + 41 + 54 + 50 + 42}{5} = 46,8 Usuarios\)
+
+\(\overline{Y} = \frac{1}{N} \displaystyle\sum_{j=1}^{N} y_{j} n_{j}\)
+
+\(\overline{Y} = \frac{5 + 4 + 6 + 5 + 3}{5} = 4,6 Fallos\)
+
+\textbf{Covarianza:}
+
+
+\(S_{xy} = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} \displaystyle\sum_{j=1}^{N} x_{i} y_{j} n_{ij}) - \overline{X} \overline{Y}\)
+
+\(S_{xy} = \frac{(47*5) + (41*4) + (54*6) + (50*5) + (42*3)}{5} - 46,8 * 4,6 = 4,52\)
+
+\textbf{Varianza:}
+
+\(S_{x}^2  = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{i} ^2 * n_{i}) - \overline{X}^2\)
+
+\(S_{x}^2 = (\frac{(47^2) + (41^2) + (54^2) + (50^2) + (42^2) }{5}) - 46.8^2 = 23,76\)
+
+\(S_{y}^2  = (\frac{1}{N} \displaystyle\sum_{j=1}^{N} y_{j} ^2 * n_{j}) - \overline{Y}^2\)
+
+\(S_{y}^2 = (\frac{(5^2) + (4^2) + (6^2) + (5^2) + (3^2) }{5}) - 4,6^2 = 1,04\)
+
+La recta de regresi\'on para predecir el n\'umero de usarios seria:
+
+\((x - \overline{X}) = \frac{S_{xy}}{S_{y}^2} (y- \overline{Y})\)
+
+\textbf{b) Determina c\'omo de fiable es el ajuste}
+
+Tendremos que sacer la desviaci\'on tipica: 
+
+\(S_{x} = \sqrt[2]{23,76} = 4,874423043\)
+
+\(S_{y} = \sqrt[2]{1,04} = 1,019803903\)
+
+\(r = \frac{S_{xy}}{S_{x} S_{y}}\)
+
+\(r = \frac{4,52}{4,874423043 * 1,019803903} = 0,9092819014 \)
+
+Por lo que tenemos un ajuste muy fiable
+
+\rule{119mm}{0.5mm}
+
+5. La siguiente tabla muestra los resultados de medir, en 5 instantes durante un d\'ia, el n\'umero de usuarios conectados a un servidor Linux y la cantidad de RAM (en GB) disponible en el sistema:
+
+\begin{tabular}{|l|c|c|c|c|c|c|}
+N\'umero de usuarios  & 5 & 3 & 2 & 6 & 1\\
+\hline
+RAM disponible  & 1,1 & 2,6 & 3 & 1 & 3,5\\
+\end{tabular}
+
+a) Usando regresi\'on lineal, determina la cantidad de RAM disponible si hay 4 usuarios conectados.
+
+b) Usando regresi\'on lineal, determina el n\'umero de usuarios conectados si la RAM disponible es de 1.5 GB.
+
+c) Determina c\'omo de fiable es el ajuste
+
+\rule{119mm}{0.2mm}
+
+\textbf{a) Usando regresi\'on lineal, determina la cantidad de RAM disponible si hay 4 usuarios conectados.}
+
+\textbf{Media:}
+
+\(\overline{X} = \frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{i} n_{i}\)
+
+\(\overline{X} = \frac{5 + 3 + 2 + 6 + 1}{5} = 3,4 Usuarios\)
+
+\(\overline{Y} = \frac{1}{N} \displaystyle\sum_{j=1}^{N} y_{j} n_{j}\)
+
+\(\overline{Y} = \frac{1,1 + 2,6 +3 + 1 + 3,5}{5} = 2,24 GB RAM\)
+
+\textbf{Covarianza:}
+
+
+\(S_{xy} = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} \displaystyle\sum_{j=1}^{N} x_{i} y_{j} n_{ij}) - \overline{X} \overline{Y}\)
+
+\(S_{xy} = \frac{(5 * 1,1) + (3 * 2,6) + (2 * 3) + (6 * 1) + (1 * 3,5)}{5} - (3,4 * 2,24) = -1,856\)
+
+\textbf{Varianzas y desviaciones tipicas}
+
+\(S_{x}^2 = \frac{5^{2} + 3^{2} + 2^{2} + 6^{2} + 1^{2}}{5} - 3,4^{2} = 1,854723699 Usuarios^{2}\)
+
+\(S_{y}^2 = \frac{1,1^{2} + 2,6^{2} + 3^{2} + 1^{2} + 3,5^{2}}{5} - 2,24^{2} = 1,013114011 Ram^{2}\)
+
+\(S_{x} = \sqrt[2]{3,44} = 1,854723699\)
+
+\(S_{y} = \sqrt[2]{1,0264} = 1,013114011\)
+
+\textbf{Recta de regresi\'on:}
+
+\(y = 2,24 + \frac{-1,856}{3,44}(4 - 3,4) = 1,912470588 RAM\)
+
+\textbf{b) Usando regresi\'on lineal, determina el n\'umero de usuarios conectados si la RAM disponible es de 1.5 GB.}
+
+\(x = 3,4 + \frac{-1,856}{1,0264}(1,5 - 2,24) = 4,738113796 Usuarios\)
+
+
+\textbf{c) Determina c\'omo de fiable es el ajuste}
+
+\(r = \frac{S_{xy}}{S_{x} * S_{y}} = \frac{-1,856}{1,854723699 * 1,013114011} = -0,9877349681\)
+
+Con lo cual podemos decir que tenemos una buen predici\'on, teniendo  casi una correlaci\'on perfecta negativa, ya que viendo su covarianza que es negativa, significa que las rectas son decrecientes.
+
+\rule{119mm}{0.5mm}
+
+6. La siguiente tabla muestra los resultados de medir la cantidad de datos (X, en KB) tecleada por cinco operadores en un día de trabajo y el tamaño de su monitor (Y, en pulgadas).
+
+\begin{tabular}{|l|c|c|c|c|c|c|}
+X & 150 & 175 & 210 & 230 & 276\\
+\hline
+Y  & 15 & 17 & 19 & 21 & 26\\
+\end{tabular}
+
+a) Usando regresi\'on lineal, determina la cantidad de datos que se puede predecir para un operador cuyo monitor sea de 24 pulgadas.
+
+b) Determina c\'omo de fiable es el ajuste.
+
+\rule{119mm}{0.2mm}
+
+\textbf{a) Usando regresi\'on lineal, determina la cantidad de datos que se puede predecir para un operador cuyo monitor sea de 24 pulgadas.}
+ 
+ \textbf{Media:}
+
+\(\overline{X} = \frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{i} n_{i}\)
+
+\(\overline{X} = \frac{150 + 175 + 210 + 230 + 276}{5} = 208,2 KB\)
+
+\(\overline{Y} = \frac{1}{N} \displaystyle\sum_{j=1}^{N} y_{j} n_{j}\)
+
+\(\overline{Y} = \frac{15 + 17 + 19 + 21 + 26}{5} = 19,6 pulgadas\)
+
+\textbf{Covarianza:}
+
+
+\(S_{xy} = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} \displaystyle\sum_{j=1}^{N} x_{i} y_{j} n_{ij}) - \overline{X} \overline{Y}\)
+
+\(S_{xy} = \frac{(150 * 15) + (175 * 17) + (2210 * 19) + (230 * 21) + (276 * 26)}{5} - 208,2 * 19,6 = 163,48 KB/Pulgada\)
+
+\textbf{Varianza:}
+
+\(S_{x}^2  = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{i} ^2 * n_{i}) - \overline{X}^2\)
+
+\(S_{x}^2 = (\frac{(150^2) + (175^2) + (210^2) + (230^2) + (276^2) }{5}) - 208,2^2 = 1912,96\)
+
+\(S_{y}^2  = (\frac{1}{N} \displaystyle\sum_{j=1}^{N} y_{j} ^2 * n_{j}) - \overline{Y}^2\)
+
+\(S_{y}^2 = (\frac{(15^2) + (17^2) + (19^2) + (21^2) + (26^2) }{5}) - 19,6^2 = 14,24\)
+
+La recta de regresi\'on para predecir el n\'umero de datos es:
+
+\((x - \overline{X}) = \frac{S_{xy}}{S_{y}^2} (y- \overline{Y})\)
+
+\(x = 208,2 \frac{163,48}{14,24} (24 - 19,6) = 10537,11258 KB\)
+ 
+ \textbf{b) Determina c\'omo de fiable es el ajuste.}
+
+\(S_{x} = \sqrt[2]{1912,96} = 43,73739819\)
+
+\(S_{y} = \sqrt[2]{14,24} = 3,773592453\)
+
+\(r = \frac{S_{xy}}{S_{x} S_{y}}\)
+
+\(r = \frac{163,48}{43,73739819 * 3,773592453} = 0,9905050402 \)
+
+Por lo que podemos decir que es fiable el ajuste
+
+
+\rule{119mm}{0.5mm}
+
+7. Los siguientes datos representan el n\'umero de accesos (X) a un servidor remoto y el n\'umero de cortes en la comunicaci\'on (Y) sufridos durante diez d\'ias consecutivos
+
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|}
+X & 170 & 160 & 210 & 140 & 180 & 240 & 160 & 140 & 210 & 230\\
+\hline
+Y  & 8 & 7 & 11 & 5 & 9 & 12 & 8 & 6 & 10 & 15\\
+\end{tabular}
+
+a) Comprueba si las variables X e Y son independientes
+
+b) Calcula, usando una recta de regresi\'on, el n\'umero de cortes en la comunicaci\'on durante un d\'ia en el que se producen 150 accesos. ¿Es bueno el ajuste?
+
+\rule{119mm}{0.2mm}
+
+\textbf{a) Comprueba si las variables X e Y son independientes}
+
+\textbf{media:}
+
+\(\overline{X} = \frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{i} n_{i}\)
+
+\(\overline{X} = \frac{170 + 160 + 210 + 140 + 180 + 240 + 160 + 140 + 210 + 230}{10} = 184 Mensajes\)
+
+\(\overline{Y} = \frac{1}{N} \displaystyle\sum_{j=1}^{N} y_{j} n_{j}\)
+
+\(\overline{Y} = \frac{8 + 7 + 11 + 5 + 9 + 12 + 8 + 6 + 10 + 15}{10} = 8,9 Mensajes de SPAM\)
+
+\textbf{Varianza:}
+
+\(S_{x}^2  = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{i} ^2 * n_{i}) - \overline{X}^2\)
+
+\(S_{x}^2 = (\frac{(170^2) + (160^2) + (210^2) + (140^2) + (180^2) + (240^2) + (160^2) +(140^2) +(210^2) + (230^2) }{10}) - 184^2 = 1184\)
+
+\(S_{y}^2  = (\frac{1}{N} \displaystyle\sum_{j=1}^{N} y_{j} ^2 * n_{j}) - \overline{Y}^2\)
+
+\(S_{y}^2 = (\frac{(8^2) + (7^2) + (11^2) + (5^2) + (9^2) + (12^2) + (8^2) + (6^2) + (10^2) + (13^2)}{10}) - 8,9^2 = 6,09\)
+
+\(r = \frac{82,4}{34,40930107 * 2,467792536} = 0,97038196\)
+
+Por lo que tienen una buena relaci\'on entra ambas variables
+
+\textbf{b) Calcula, usando una recta de regresi\'on, el n\'umero de cortes en la comunicaci\'on durante un d\'ia en el que se producen 150 accesos. ¿Es bueno el ajuste?}
+
+\(y = 8,9 + \frac{82,4}{6,09}(150 - 184) = 6,53\overline{378}\)
+
+Si es buen ajuste ya que tienen una buena correlaci\'on ambas variables
+
+\rule{119mm}{0.5mm}
+
+8. Los siguientes datos representan el n\'umero total de mensajes de correo electr\'onico (X) manejados por un servidor y el n\'umero  de mensajes tipo SPAM (Y) correspondiente a diez d\'ias consecutivos:
+
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|}
+X & 170 & 160 & 210 & 140 & 180 & 240 & 160 & 140 & 210 & 230\\
+\hline
+Y  & 8 & 7 & 11 & 5 & 9 & 12 & 8 & 6 & 10 & 15\\
+\end{tabular}
+
+a) ¿Cu\'al de las dos variables es m\'as dispersa?.
+
+b) Calcula, usando una recta de regresi\'on, el n\'umero total de mensajes manejados durante un d\'ia en el que se recibieron 13 mensajes tipo SPAM. ¿Es bueno el ajuste realizado mediante la recta de regresi\'on?
+
+\rule{119mm}{0.2mm}
+
+\textbf{a) ¿Cu\'al de las dos variables es m\'as dispersa?.}
+
+Para ver el grado de dispersi\'on de ambas variables tenemos que fijarnos en su coeficiente de variacion de Pearson:
+
+\textbf{media:}
+
+\(\overline{X} = \frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{i} n_{i}\)
+
+\(\overline{X} = \frac{170 + 160 + 210 + 140 + 180 + 240 + 160 + 140 + 210 + 230}{10} = 184 Mensajes\)
+
+\(\overline{Y} = \frac{1}{N} \displaystyle\sum_{j=1}^{N} y_{j} n_{j}\)
+
+\(\overline{Y} = \frac{8 + 7 + 11 + 5 + 9 + 12 + 8 + 6 + 10 + 15}{10} = 9,1 Mensajes de SPAM\)
+
+\textbf{Varianza:}
+
+\(S_{x}^2  = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} x_{i} ^2 * n_{i}) - \overline{X}^2\)
+
+\(S_{x}^2 = (\frac{(170^2) + (160^2) + (210^2) + (140^2) + (180^2) + (240^2) + (160^2) +(140^2) +(210^2) + (230^2) }{10}) - 184^2 = 1184\)
+
+\(S_{y}^2  = (\frac{1}{N} \displaystyle\sum_{j=1}^{N} y_{j} ^2 * n_{j}) - \overline{Y}^2\)
+
+\(S_{y}^2 = (\frac{(8^2) + (7^2) + (11^2) + (5^2) + (9^2) + (12^2) + (8^2) + (6^2) + (10^2) + (15^2)}{10}) - 9,1^2 = 8,09\)
+
+\textbf{Desviaci\'on tipica:}
+
+\(S_{x} = \sqrt[2]{1184} = 34,40930107\)
+
+\(S_{y} = \sqrt[2]{8,09} = 2,844292531\)
+
+Y por ultimo ya obtenemos el coeficiente de variaci\'on de Pearson:
+
+\(V(x) = \frac{S_{x}}{\overline{X}} = \frac{34,40930107}{184} = 0,3845054617\)
+
+\(V(y) = \frac{S_{y}}{\overline{Y}} = \frac{2,844292531}{9,1} = 0,4301645784\)
+
+Por lo que la variable Y es mas dispersa que la variable X
+
+
+\textbf{b) Calcula, usando una recta de regresi\'on, el n\'umero total de mensajes manejados durante un d\'ia en el que se recibieron 13 mensajes tipo SPAM. ¿Es bueno el ajuste realizado mediante la recta de regresi\'on?}
+
+\(S_{xy} = (\frac{1}{N} \displaystyle\sum_{i=1}^{N} \displaystyle\sum_{j=1}^{N} x_{i} y_{j} n_{ij}) - \overline{X} \overline{Y}\)
+
+\(S_{xy} = \frac{(170 * 8) + (160 * 7) + (210 * 11) + (140 * 5) + (180 * 9) + (240 * 12) + (160 * 8) + (140 * 6) + (210 * 10) + (230 * 15)}{10} - 184 * 9,1 = 91,6\)
+
+
+\(x = \overline{X}  + \frac{S_{xy}}{S_{y}^2} (y - \overline{Y})\)
+
+\(y = 184 + \frac{91,6}{0,3125596188}(13 - 9,1) = 1326 Mensajes manejaos\)
+
+Para ver si fue un buen ajuste estudiaremos 
+
+\(r = \frac{S_{xy}}{S_{x} S_{y}}\)
+
+\(r = \frac{91.6}{34,40930107 * 2,844292531} = 0,9359342958\)
+
+Por lo que podemos ver que tiene un buena relaci\'on ambas variables por lo que es buen ajuste
+
+\rule{119mm}{0.5mm}
+9. En una empresa los empleados se clasifican en tres categor\'ias: t\'ecnicos, especialistas y administrativos. El salario medio mensual y la varianza de los salarios de cada categoria en el mes de Diciembre de 2015 son los que aparecen en el siguiente cuadro:
+
+\begin{tabular}{||c|c|c||}
+\hline
+Categor\'ia & Salario medio mensual (euros) & Varianza de los salarios\\
+\hline
+T\'ecnicos  & 2500 & 10 \\
+\hline
+Especialistas  & 2000 & 25 \\
+\hline
+Administrativos  & 1500 & 15 \\
+\hline
+\end{tabular}
+
+I.- ¿En qu\'e grupo de empleados los salarios son m\'as homog\'eneos?
+
+II.- En la discursi\'on para fijar los salarios de 2016 han sido propuestas dos alternativas:
+
+	A: La elevaci\'on de todos los salarios en un 5 \%
+	
+	B: La elevaci\'on de todos los salarios en 50 euros mensuales.
+
+Calcula los salarios medios que resultan de aplicar las dos alternativas y la dispersi\'on relativa en cada caso. ¿Qu\'e alternativa provoca menos dispersi\'on en los salarios de los grupos?
+
+\rule{119mm}{0.2mm}
+
+\textbf{I.- ¿En qu\'e grupo de empleados los salarios son m\'as homog\'eneos?}
+
+sabiendo que:
+
+\(\overline{x} = 2500\) y \( S_{x}^2 = 10\)
+
+\(\overline{y} = 2000\) y \(S_{y}^2 = 25\)
+
+\(\overline{z} = 1500\) y \(S_{z}^2 = 15\)
+
+
+Sacamos la desviaci\'on tipica:
+
+\(S_{x} = \sqrt[2]{10} = 3,16227766\)
+
+\(S_{y} = \sqrt[2]{25} = 5\)
+
+\(S_{z} = \sqrt[2]{15} = 3,872983346\)
+
+Y podemos sacar el coeficiente de variaci\'on de Pearson:
+
+\(CV = \frac{S_{x}}{\overline{x}}\)
+
+\(CV(x) = \frac{3,16227766}{2500} = 0,00126491106\) 
+
+\(CV(y) = \frac{5}{2000} = 0,0025\) 
+
+\(CV(z) = \frac{3,872983346}{1500} = 0,00258198889\)  
+
+Con la conclusi\'on que podemos sacar es que el grupo de los Administrativos es el m\'as homog\'eneo.
+
+\textbf{II.- En la discursi\'on para fijar los salarios de 2016 han sido propuestas dos alternativas:}
+
+	\textbf{A: La elevaci\'on de todos los salarios en un 5 \%}
+	
+	\textbf{B: La elevaci\'on de todos los salarios en 50 euros mensuales.}
+
+\textbf{Calcula los salarios medios que resultan de aplicar las dos alternativas y la dispersi\'on relativa en cada caso. ¿Qu\'e alternativa provoca menos dispersi\'on en los salarios de los grupos?}
+
+\textbf{Aumentado en un 5\%}
+
+\(\overline{x} = 2625\) y \( S_{x}^2 = 10,5\)
+
+\(\overline{y} = 2100\) y \(S_{y}^2 = 26,25\)
+
+\(\overline{z} = 1575\) y \(S_{z}^2 = 15,75\)
+
+
+Sacamos la desviaci\'on tipica:
+
+\(S_{x} = \sqrt[2]{10} = 3,240370349\)
+
+\(S_{y} = \sqrt[2]{25} = 5,123475383\)
+
+\(S_{z} = \sqrt[2]{15} = 3,968626967\)
+
+Y podemos sacar el coeficiente de variaci\'on de Pearson:
+
+\(CV = \frac{S_{x}}{\overline{x}}\)
+
+\(CV(x) = \frac{3,240370349}{2625} = 0,0012344268\) 
+
+\(CV(y) = \frac{5,123475883}{2100} = 0,00243975018\) 
+
+\(CV(z) = \frac{3,968626967}{1575} = 0,00251976315\)  
+
+\textbf{Sumando 50 \euro:}
+
+\(\overline{x} = 2550\) y \( S_{x}^2 = 60\)
+
+\(\overline{y} = 2050\) y \(S_{y}^2 = 75\)
+
+\(\overline{z} = 1550\) y \(S_{z}^2 = 65\)
+
+
+Sacamos la desviaci\'on tipica:
+
+\(S_{x} = \sqrt[2]{60} = 7,745966692\)
+
+\(S_{y} = \sqrt[2]{75} = 8,660254038\)
+
+\(S_{z} = \sqrt[2]{65} = 8,062257748\)
+
+Y podemos sacar el coeficiente de variaci\'on de Pearson:
+
+\(CV = \frac{S_{x}}{\overline{x}}\)
+
+\(CV(x) = \frac{7,745966692}{2550} = 0,00126491106\) 
+
+\(CV(y) = \frac{8,660254038}{2050} = 0,0025\) 
+
+\(CV(z) = \frac{8,062257748}{1550} = 0,00520145661\)  
+
+Atendiendo al Coeficiente de variaci\'on de Pearson, podemos decir que aumentar en un 5\% el salario tiene un menor dispersi\'on de los datos respecto a la media aritmetica.
+
+\rule{119mm}{0.5mm}
+
+10. Se han estudiado las califiaciones de 100 alumnos en dos asignaturas: Matem\'aticas y Estad\'istica, obteni\'endose los siguientes datos:
+
+\(\overline{x} = 110, \overline{y} = 2.5, S_{x} = 10, S_{y} = 0.5, r = 0.85.\)
+
+a) ¿Qu\'e nota se puede predecir para un alumno, que ha obtenido 125 puntos en Matem\'aticas, en la asignatura de Estad\'istica?
+
+b) ¿Se puede decir que aquellos alumnos que obtienen mayor calificaci\'on en Matem\'aticas sean los mismos que obtienen mayor calificaci\'on en Estad\'istica?
+
+c) ¿Cu\'al es la ecuaci\'on de la recta de regresi\'on de X sobre Y?
+
+\rule{119mm}{0.2mm}
+
+\textbf{a) ¿Qu\'e nota se puede predecir para un alumno, que ha obtenido 125 puntos en Matem\'aticas, en la asignatura de Estad\'istica?}
+
+Sabiendo que: \(r = \frac{S_{xy}}{S_{x} S_{y}} \)
+
+podemos sacar la covarianza: \(S_{xy = 0,85 * 10 * 0,5 = 4,25} \)
+
+Ahora ya podemos predecir la nota del alumno que ha obtenido 125 puntos en Matem\'aticas, y con bastante buena prediccion
+
+\(y = 2,5 + \frac{4.25}{100} (125 - 110) = 2,659375\)
+
+\textbf{b) ¿Se puede decir que aquellos alumnos que obtienen mayor calificaci\'on en Matem\'aticas sean los mismos que obtienen mayor calificaci\'on en Estad\'istica?}
+
+Si, ya que existe una buena relaci\'on entre ambas variables
+
+\textbf{c) ¿Cu\'al es la ecuaci\'on de la recta de regresi\'on de X sobre Y?}
+
+\(x = \overline{X} + \frac{S_{xy}}{S_{x}^2} (y - \overline{Y})\)
+
+
+\end{document}
